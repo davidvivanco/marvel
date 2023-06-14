@@ -1,0 +1,27 @@
+ion-modal::part(backdrop) {
+  background-color: var(--ion-color-primary);
+}
+
+ion-searchbar.custom-searchbar {
+  --background: var(--ion-color-primary);
+  --color: #fff;
+  --placeholder-color: #fff;
+  --icon-color: #fff;
+  --clear-button-color: #fff;
+  --border-radius-top: 20px;
+}
+
+ion-searchbar.ios.custom-searchbar {
+  --cancel-button-color: var(--ion-color-primary-shade);
+}
+
+ion-searchbar.md.custom-searchbar {
+  --cancel-button-color: #fff;
+}
+
+ion-spinner {
+  position: absolute;
+  top: 44%;
+  left: 45%;
+  transform: scale(4);
+}

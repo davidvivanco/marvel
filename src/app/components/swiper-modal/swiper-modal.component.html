@@ -1,0 +1,36 @@
+<ion-content class="ion-padding">
+  <swiper *ngIf="heroes?.length" [config]="config">
+    <ng-template swiperSlide *ngFor="let heroe of heroes; let i = index">
+      <div
+        class="thumbnail-wrapper flex fd-col jc-c"
+        (click)="toggleActiveHeroe(i)"
+      >
+        <img
+          class="thumbnail"
+          [class.active]="heroe?.id === state?.characterSelected?.id"
+          width="99"
+          height="99"
+          alt="Silhouette of mountains"
+          [src]="heroe.thumbnail.path + '.' + heroe.thumbnail.extension"
+        />
+        <div
+          class="title t-center uppercase"
+          [class.active]="heroe?.id === state?.characterSelected?.id"
+        >
+          {{ heroe.name }}
+        </div>
+      </div>
+    </ng-template>
+  </swiper>
+  <ion-row class="ion-justify-content-center ion-margin-top">
+    <ion-button
+      (click)="seeMore()"
+      style="width: 80%"
+      expand="block"
+      shape="round"
+      color="primary"
+    >
+      VER MÁS
+    </ion-button>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,23 @@
+ion-content {
+  height: 100vh;
+  --border-radius: 30px;
+  .thumbnail {
+    border-radius: 15px;
+  }
+
+  .thumbnail-wrapper {
+    .title {
+      margin-top: 5px;
+      font-size: 0.6rem;
+      // opacity: 0.9;
+    }
+    .active {
+      color: var(--ion-color-primary);
+      font-weight: bold;
+      opacity: 1;
+    }
+  }
+  .thumbnail.active {
+    border: 1.5px solid var(--ion-color-primary);
+  }
+}
