@@ -1,0 +1,114 @@
+<ion-content id="main-content">
+  <div class="container flex">
+    <div class="menu hide-tablet">
+      <div class="flex fd-col ion-padding ai-c jc-c">
+        <img
+          width="100"
+          style="position: absolute; top: 3%"
+          alt="Silhouette of a person's head"
+          [src]="'./assets/icon/marvel-logo.jpeg'"
+        />
+        <span style="color: white; position: absolute;bottom: 3%;"
+        class="cp" (click)="goToLinkedin()">
+          Developed by David Vivanco
+        </span>
+        <ion-row
+          class="cp"
+          *ngFor="let item of  menuConfig"
+          (click)="getCharacters(item.name)"
+        >
+          <ion-col size="2">
+            <img
+              width="30"
+              height="30"
+              alt="Silhouette of a person's head"
+              [src]="'./assets/icon/' + item.icon + '.png'"
+            />
+          </ion-col>
+          <ion-col class="text-white fs18 uppercase" style="margin-top: 4px">
+            {{item.label}}
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="main">
+      <ion-header class="ion-padding ion-no-border">
+        <ion-toolbar class="ion-padding">
+          <form [formGroup]="formGroup">
+            <ion-searchbar
+              mode="ios"
+              formControlName="search"
+              #searchInput
+              class="custom-searchbar"
+            ></ion-searchbar>
+          </form>
+        </ion-toolbar>
+      </ion-header>
+      <div class="hero flex" style="justify-content: space-around">
+        <div class="flex fd-col ion-padding text">
+          <div class="fs32 flex jc-c ai-c t-center uppercase">
+            {{heroeActive?.name}}
+          </div>
+          <div
+            *ngIf="heroeActive"
+            class="ion-margin-top t-center"
+            style="opacity: 0.8"
+            [innerHTML]="heroeActive?.description || 'No description aviable'"
+          ></div>
+        </div>
+        <div class="img">
+          <img
+            *ngIf="heroeActive"
+            class="hero-img"
+            [src]="heroeActive?.thumbnail.path + '.' + heroeActive?.thumbnail.extension"
+            alt=""
+          />
+          <div
+            style="background-color: white; border-radius: 5px"
+            *ngIf="!heroeActive && !state.loading"
+            class="flex jc-c ai-c fd-col"
+          >
+            <img
+              class="hero-img ion-padding"
+              src="./assets/images/hulk.svg"
+              alt=""
+            />
+          </div>
+          <div
+            class="flex jc-c ion-margin-top uppercase"
+            *ngIf="!heroeActive && !state.loading"
+            style="color: white; font-size: 28px"
+          >
+            No coincidences!. Hulk Mad!!!!
+          </div>
+        </div>
+      </div>
+      <swiper *ngIf="heroes?.length" [config]="config">
+        <ng-template swiperSlide *ngFor="let heroe of heroes; let i = index">
+          <div
+            [class.active]="heroe?.id === state?.characterSelected?.id"
+            class="card flex fd-col jc-c"
+            (click)="toggleActiveHeroe(i)"
+          >
+            <img
+              class="thumbnail"
+              [class.active]="heroe?.id === state?.characterSelected?.id"
+              width="120"
+              height="120"
+              alt="Silhouette of mountains"
+              [src]="heroe.thumbnail.path + '.' + heroe.thumbnail.extension"
+            />
+            <div
+              class="title t-center uppercase"
+              [class.active]="heroe?.id === state?.characterSelected?.id"
+            >
+              {{ heroe.name }}
+            </div>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+  </div>
+</ion-content>
+
+<ion-spinner *ngIf="state.loading" color="primary"></ion-spinner>

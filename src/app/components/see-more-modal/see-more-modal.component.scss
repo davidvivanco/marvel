@@ -1,6 +1,6 @@
 ion-content {
   height: 100vh;
-  --border-radius: 30px;
+  --border-radius-top: 30px;
   overflow-y: scroll;
 
   /* container */
@@ -24,4 +24,10 @@ ion-toolbar {
   div {
     font-size: 24px;
   }
+}
+
+.title {
+  font-size: 12px;
+  padding: 10px;
+  min-height: 62px;
 }

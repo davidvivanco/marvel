@@ -2,6 +2,7 @@
   <ion-toolbar class="ion-padding">
     <form [formGroup]="formGroup">
       <ion-searchbar
+        mode="ios"
         formControlName="search"
         #searchInput
         class="custom-searchbar"
@@ -11,18 +12,15 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div
-    *ngIf="heroes?.length > 0"
-    class="three-columns-grid ion-margin-top ion-margin-bottom"
-  >
+  <div *ngIf="heroes?.length > 0" class="three-columns-grid ion-margin-bottom">
     <div
       class="flex fd-col jc-c"
       *ngFor="let heroe of heroes; let i = index"
       (click)="characterSelected(heroe)"
     >
       <img
-        width="99"
-        height="99"
+        width="105"
+        height="105"
         [alt]="heroe?.name"
         [src]="heroe?.thumbnail?.path + '.' + heroe?.thumbnail?.extension"
       />
@@ -36,7 +34,11 @@
     *ngIf="!state.loading && heroes?.length === 0"
   >
     <img src="./assets/images/hulk.svg" alt="" />
-    <div class="uppercase flex jc-c ion-margin-top bold">There are no coincidences
+    <div
+      class="uppercase t-center flex jc-c ion-margin-top bold"
+      style="width: 90%"
+    >
+      No coincidences!. Hulk Mad!!!!
     </div>
   </div>
   <ion-spinner *ngIf="state?.loading" color="primary"></ion-spinner>

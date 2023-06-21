@@ -1,7 +1,11 @@
 <ion-menu (ionWillClose)="onMenuClose()" type="push" content-id="main-content">
   <ion-content scroll="false" class="ion-padding">
     <ion-menu-toggle>
-      <ion-button (click)="closeMenu()">
+      <ion-button
+        mode="ios"
+        style="background: transparent"
+        (click)="closeMenu()"
+      >
         <ion-icon size="large" name="close"></ion-icon>
       </ion-button>
     </ion-menu-toggle>
@@ -16,15 +20,24 @@
         >
           <ion-col size="2">
             <img
-              width="40"
-              height="40"
+              width="30"
+              height="30"
               alt="Silhouette of a person's head"
-              [src]="'./assets/icon/' + item.icon + '.svg'"
+              [src]="'./assets/icon/' + item.icon + '.png'"
             />
           </ion-col>
-          <ion-col class="text-white fs22 uppercase"> {{item.label}} </ion-col>
+          <ion-col class="text-white fs18 uppercase" style="margin-top: 4px">
+            {{item.label}}
+          </ion-col>
         </ion-row>
       </ion-menu-toggle>
+    </div>
+    <div
+      (click)="goToLinkedin()"
+      class="flex jc-s ai-c cp"
+      style="position: absolute; bottom: 5%; margin-left: 10px; color: white"
+    >
+      Developed by David Vivanco
     </div>
   </ion-content>
 </ion-menu>
@@ -70,11 +83,12 @@
       <div
         class="ion-margin-top t-center"
         style="opacity: 0.8"
-        [innerHTML]="heroeActive?.description"
+        [innerHTML]="heroeActive?.description || 'No description aviable'"
       ></div>
     </ion-col>
   </ion-row>
   <ion-modal
+    *ngIf="isMobileView"
     #modal
     [isOpen]="modalOpen"
     cssClass="home-modal"

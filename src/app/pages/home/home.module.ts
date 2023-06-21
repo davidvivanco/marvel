@@ -6,8 +6,8 @@ import { HomePage } from './home.page';
 import { SwiperModule } from 'swiper/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { SwiperModalComponent } from '../components/swiper-modal/swiper-modal.component';
-import { SeeMoreModalComponent } from '../components/see-more-modal/see-more-modal.component';
+import { SwiperModalComponent } from '../../components/swiper-modal/swiper-modal.component';
+import { SeeMoreModalComponent } from '../../components/see-more-modal/see-more-modal.component';
 
 @NgModule({
   imports: [

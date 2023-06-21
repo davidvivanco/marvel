@@ -38,7 +38,10 @@ export class SeeMoreModalComponent implements OnDestroy {
     this.subs.add(
       this.formGroup.valueChanges
         .pipe(
-          tap(() => this.store.updateState({ ...this.state, loading: true })),
+          tap(() => {
+            this.heroes = [];
+            this.store.updateState({ ...this.state, loading: true });
+          }),
           delay(500),
           switchMap((value) => {
             const search = value.search;
@@ -56,7 +59,7 @@ export class SeeMoreModalComponent implements OnDestroy {
       })
     );
   }
-  
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

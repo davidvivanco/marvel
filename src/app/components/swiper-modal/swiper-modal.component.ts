@@ -24,7 +24,7 @@ export class SwiperModalComponent implements OnInit, OnDestroy {
   state: Partial<AppState>;
   subs: Subscription;
   config: SwiperOptions = {
-    spaceBetween: 10,
+    spaceBetween: 5,
     slidesPerView: 3.4,
     navigation: false,
     pagination: { clickable: false, enabled: false },

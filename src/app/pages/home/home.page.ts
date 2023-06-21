@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import SwiperCore, {
   Navigation,
@@ -7,12 +12,14 @@ import SwiperCore, {
   A11y,
   SwiperOptions,
 } from 'swiper';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
 import { HttpParams } from '@angular/common/http';
-import { HeroesData } from '../models/api';
-import { MENU_CONFIG } from '../config/menu';
-import { StoreService } from '../store/store.service';
-import { AppState } from '../store/state';
+import { HeroesData } from '../../models/api';
+import { MENU_CONFIG } from '../../config/menu';
+import { StoreService } from '../../store/store.service';
+import { AppState } from '../../store/state';
+import { Subscription, distinctUntilChanged } from 'rxjs';
+import { ScreenSizeService } from 'src/app/services/screen-size.service';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 @Component({
@@ -20,7 +27,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnDestroy {
   @ViewChild('modal') modal: IonModal;
 
   modalOpen: boolean;
@@ -29,22 +36,47 @@ export class HomePage {
   menuConfig = MENU_CONFIG;
   seeMoreActive: boolean;
   state: Partial<AppState>;
+  subs: Subscription;
+  isMobileView: boolean;
 
   constructor(
     private cdr: ChangeDetectorRef,
     private api: ApiService,
+    private screenSizeService: ScreenSizeService,
     private store: StoreService
   ) {
+    this.subs = new Subscription();
     this.state = this.store.getStateValue();
     this.modalOpen = true;
     this.getCharacters(this.menuConfig[0].name);
-    this.store.getState().subscribe((state) => {
-      this.state = state;
-      this.heroes = state.characters;
-      if (state.closeFullyOpenModal) this.seeLess();
-      if (this.heroes?.length > 0)
-        this.heroeActive = this.state.characterSelected || this.heroes[0];
-    });
+
+    this.subs.add(
+      this.screenSizeService
+        .isMobileView()
+        .pipe(distinctUntilChanged())
+        .subscribe((isMobileView) => {
+          this.isMobileView = isMobileView;
+        })
+    );
+    
+    this.subs.add(
+      this.store.getState().subscribe((state) => {
+        this.state = state;
+        this.heroes = state.characters;
+        if (state.closeFullyOpenModal) this.seeLess();
+
+        if (this.heroes?.length > 0) {
+          this.heroeActive = this.state.characterSelected || this.heroes[0];
+        }
+        if (!this.state.characterSelected) {
+          this.state.characterSelected = this.heroeActive;
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   closeMenu() {
@@ -78,11 +110,14 @@ export class HomePage {
   getCharacters(name?: string, limit?: number, seeMoreActive = false) {
     this.seeMoreActive = seeMoreActive;
     this.modalOpen = true;
-    this.store.updateState({ ...this.state, characterSelected: null });
     this.api.getCharacters(name, this.state);
   }
 
   onMenuClose() {
     this.modalOpen = true;
+  }
+  
+  goToLinkedin(){
+    window.open('https://www.linkedin.com/in/vivancoda/', '_self');
   }
 }

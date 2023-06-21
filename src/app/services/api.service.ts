@@ -35,7 +35,11 @@ export class ApiService {
       .get<CharactersApiResponse>(url, { params })
       .pipe(map((res: CharactersApiResponse) => res?.data?.results || []))
       .subscribe((characters) => {
-        this.store.updateState({ ...state, characters });
+        this.store.updateState({
+          ...state,
+          characters,
+          characterSelected: null,
+        });
       });
   }
 
@@ -45,7 +49,6 @@ export class ApiService {
     limit?: number
   ): Observable<HeroesData[]> {
     let params = {};
-    console.log('foo1', name);
     this.store.updateState({ ...state, loading: true });
 
     if (name) {

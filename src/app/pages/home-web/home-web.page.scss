@@ -1,0 +1,104 @@
+@import "../../../theme/utils/responsive";
+ion-toolbar {
+  --background: black;
+  --border-width: 0;
+}
+
+ion-content {
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 24px;
+    height: 100%;
+    @include screen-tablet {
+      background-color: black;
+      padding: 24px;
+    }
+    @media (min-width: 1120px) {
+      box-sizing: content-box;
+      max-width: 1024px;
+      padding: 0;
+    }
+    .menu {
+      background: black;
+      width: 30%;
+      div {
+        height: 100%;
+        background: var(--ion-color-primary);
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+    }
+    .main {
+      .hero {
+        width: 100%;
+        color: white;
+        position: absolute;
+        right: 0;
+        @include screen-tablet {
+          flex-direction: column-reverse;
+          align-items: center;
+        }
+        .text{
+          @include screen-tablet {
+            width: 60%;
+            margin-top: 5%;
+          }
+        }
+        .hero-img {
+          max-width: 350px;
+          border-radius: 3px;
+        }
+      }
+      height: 100vh;
+      width: 75%;
+      background: black;
+      position: relative;
+      @include screen-tablet {
+        width: 100%;
+      }
+      swiper {
+        position: absolute;
+        bottom: 3%;
+        right: 0;
+        width: 95%;
+        border-radius: 20px;
+        padding: 16px;
+        padding-left: 20px;
+        @include screen-tablet {
+          bottom: 7%;
+          right: 0;
+          width: 100%;
+        }
+        .card {
+          cursor: pointer;
+          justify-content: flex-start;
+          max-width: 110px;
+          background-color: white;
+          border-radius: 20px;
+          border: 1px solid black;
+          color: black;
+          min-height: 180px;
+          transition: ease-in-out 0.3s;
+          img {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+          }
+          .title {
+            font-size: 10px;
+            padding: 10px;
+          }
+          .title.active {
+            color: var(--ion-color-primary);
+            font-weight: bold;
+          }
+        }
+
+        .card:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}

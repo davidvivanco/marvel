@@ -10,6 +10,18 @@
   justify-content: center;
 }
 
+.jc-sa {
+  justify-content: space-around;
+}
+
+.jc-sb {
+  justify-content: space-between;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
 .t-center {
   text-align: center;
 }
@@ -22,6 +34,14 @@
   font-size: 22px;
 }
 
+.fs20 {
+  font-size: 20px;
+}
+
+.fs18 {
+  font-size: 18px;
+}
+
 .fs32 {
   font-size: 32px;
 }
@@ -32,4 +52,12 @@
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.cp {
+  cursor: pointer;
 }
